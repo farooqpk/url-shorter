@@ -1,0 +1,63 @@
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div class="container">
+    <h1 class="title">URL Shortener</h1>
+
+    {{#if fullUrl}}
+    <div class="short-url">
+        <span id="copy-target">{{fullUrl}}</span>
+        <button class="btn btn-secondary" onclick="copyToClipboard()">
+            Copy
+        </button>
+    </div>
+    {{else}}
+
+    <form class="form" action="/shortUrl" method="post">
+        <div class="form-group">
+            <input type="text" placeholder="Enter your long URL here" class="form-control" name="longUrl" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Shorten</button>
+    </form>
+
+{{/if}}
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .title {
+        font-size: 40px;
+        margin-bottom: 50px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center
+</style>
+
+<script>
+    function copyToClipboard() {
+        navigator.clipboard.writeText(document.getElementById("copy-target").innerHTML)
+            .then(() => {
+
+                alert('url copied to clipboard');
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert("Failed to copy the text");
+            });
+    }
+</script>
